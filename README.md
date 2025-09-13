@@ -1,8 +1,8 @@
 # 🚀 Projeto Atualizado ⚙️
+<img width="600" src="https://rawgit.com/Leaflet/Leaflet/main/src/images/logo.svg" alt="Leaflet" />
 
-💻🧠✅✏️❌🔍📦
 
-📅 Última atualização: **13/09/2025 19:19:43,31**
+📅 Última atualização: **13/09/2025 19:20:45,79**
 
 Diretório atual: C:\dev\leafletnode
 
@@ -16,4 +16,4 @@ Este projeto é atualizado automaticamente via script.
 
 ---
 
-<img width="600" src="https://rawgit.com/Leaflet/Leaflet/main/src/images/logo.svg" alt="Leaflet" />
+💻🧠✅✏️❌🔍📦
