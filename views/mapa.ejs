@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mapa de Coordenadas</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+    #map { height: 500px; }
+  </style>
+
+    <script>
+
+function resetarZoom() {
+  if (latlngs.length > 0) {
+    map.fitBounds(latlngs, { padding: [50, 50] });
+  } else {
+    map.setView([-15.7797, -47.9297], 4);
+  }
+}
+
+</script>
+
+  </head>
+  <body>
+    <h1>Mapa</h1>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+  const coordenadas = <%- coordenadasJson %>;
+
+  const map = L.map('map');
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Definindo o ícone personalizado
+  const treeIcon = L.icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/128/740/740934.png',
+    iconSize: [32, 32],      // largura e altura do ícone em px
+    iconAnchor: [16, 32],    // ponto do ícone que ficará na coordenada
+    popupAnchor: [0, -32]    // ponto do ícone onde o popup abrirá
+  });
+
+  const latlngs = [];
+
+
+coordenadas.forEach(ponto => {
+  const marker = L.marker([ponto.latitude, ponto.longitude], { icon: treeIcon })
+    .addTo(map)
+    .bindPopup(`
+      <b>${ponto.nome}</b><br>
+      Lat: ${ponto.latitude}, Lng: ${ponto.longitude}<br>
+      <a href="https://pt.wikipedia.org/wiki/${encodeURIComponent(ponto.nome)}" target="_blank">Ver na Wikipedia</a>
+    `);
+
+  latlngs.push([ponto.latitude, ponto.longitude]);
+});
+
+
+
+
+/*
+
+  coordenadas.forEach(ponto => {
+    const marker = L.marker([ponto.latitude, ponto.longitude], { icon: treeIcon })
+      .addTo(map)
+      .bindPopup(`<b>${ponto.nome}</b><br>Lat: ${ponto.latitude}, Lng: ${ponto.longitude}`);
+
+    latlngs.push([ponto.latitude, ponto.longitude]);
+  });
+
+*/
+
+
+  if (latlngs.length > 0) {
+    map.fitBounds(latlngs, { padding: [50, 50] });
+  } else {
+    map.setView([-15.7797, -47.9297], 4);
+  }
+</script>
+    <br>
+
+    <a href="/" class="btn btn-success">Voltar ao Menu</a>
+        <button  onclick="resetarZoom()" class="btn btn-primary" >🔄 Resetar Zoom</button>
+  </body>
+</html>

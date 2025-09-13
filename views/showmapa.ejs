@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mapa de Coordenada</title>
+        <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+      #map {
+        height: 80vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container my-4">
+      <h1 class="text-center">Localização de <%= coordenada.nome %></h1>
+      <p class="text-center">Latitude: <%= coordenada.latitude %>, Longitude: <%= coordenada.longitude %></p>
+      
+      <div id="map"></div>
+      <br>
+            <a href="/coordenadas/listar" class="btn btn-success">Voltar à Lista</a>
+      <br>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      // Coordenadas passadas pelo EJS
+      const latitude = <%= coordenada.latitude %>;
+      const longitude = <%= coordenada.longitude %>;
+
+      // Inicializa o mapa
+      const map = L.map('map').setView([latitude, longitude], 13);
+
+      // Adiciona o layer de OpenStreetMap
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+
+      // Adiciona um marcador na coordenada
+      L.marker([latitude, longitude]).addTo(map)
+        .bindPopup(`<b><%= coordenada.nome %></b><br>Localização aqui.`)
+        .openPopup();
+    </script>
+  </body>
+</html>
