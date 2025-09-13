@@ -32,6 +32,14 @@
       // Inicializa o mapa
       const map = L.map('map').setView([latitude, longitude], 13);
 
+
+  const customIcon  = L.icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/128/740/740934.png',
+    iconSize: [32, 32],      // largura e altura do ícone em px
+    iconAnchor: [16, 32],    // ponto do ícone que ficará na coordenada
+    popupAnchor: [0, -32]    // ponto do ícone onde o popup abrirá
+  });
+
       // Adiciona o layer de OpenStreetMap
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -39,8 +47,10 @@
       }).addTo(map);
 
       // Adiciona um marcador na coordenada
-      L.marker([latitude, longitude]).addTo(map)
-        .bindPopup(`<b><%= coordenada.nome %></b><br>Localização aqui.`)
+      // Adiciona um marcador na coordenada
+      L.marker([latitude, longitude], { icon: customIcon }).addTo(map)
+
+        .bindPopup(`<b><%= coordenada.nome %></b><br>Localização aqui.   `)
         .openPopup();
     </script>
   </body>
